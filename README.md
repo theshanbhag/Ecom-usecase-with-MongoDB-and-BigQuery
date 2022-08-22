@@ -1,4 +1,8 @@
 # Ecom-usecase-with-MongoDB-and-BigQuery
+
+**Machine Learning Models**
+
+
 **User Clustering**
 
 Loyalty programs often categorize users into discrete segments based on the user’s purchase behavior and site engagement, such as Platinum / Gold / Silver / Bronze tiers.  
