@@ -16,13 +16,12 @@ def startDataflowProcess(event, context):
     """
 
     from googleapiclient.discovery import build
-    from datetime import date
-
+    from datetime import datetime
+    
     project = "ecomm-analysis"
-
+    
     now = datetime.now()
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-
+    dt_string = now.isoformat()
 
     job = "csvtobigquery"+dt_string
 
