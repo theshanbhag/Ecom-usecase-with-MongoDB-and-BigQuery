@@ -6,12 +6,12 @@ To push back recommendations from big query back to mongo, so that these recomme
 
 **Details:** 
 
-1.Create a batch load job to load product affinity data as below. We need to pass mongodb url, collection name, big query table from where data needs to be loaded 
+1.Create a batch load job to load product affinity data as below. We need to pass mongodb url, collection name, big query table from where data needs to be loaded, and select template as Big Query to Mongodb
 ![image](https://user-images.githubusercontent.com/111537542/186255590-2b874a67-519a-4293-8cd4-ebf9f5acda1b.png)
 
 
 
-2.Create a batch load job to load user clustering  data(user_clusters_op) as below. We need to pass mongodb url, collection name, big query table from where data needs to be loaded 
+2.Create a batch load job to load user clustering  data(user_clusters_op) as below. We need to pass mongodb url, collection name, big query table from where data needs to be loaded, and select template as Big Query to Mongodb 
 ![image](https://user-images.githubusercontent.com/111537542/186256976-4dc38780-a073-4c87-b6b9-8a891f0506c9.png)
 
 
