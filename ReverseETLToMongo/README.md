@@ -7,7 +7,8 @@ To push back recommendations from big query back to mongo, so that these recomme
 **Details:** 
 
 1.Create a batch load job to load product affinity data as below. We need to pass mongodb url, collection name, big query table from where data needs to be loaded, and select template as Big Query to Mongodb
-![image](https://user-images.githubusercontent.com/111537542/186284255-6e5e7c70-e184-4115-acb9-f0aafd7e166e.png)
+![image](https://user-images.githubusercontent.com/111537542/186284990-235127eb-e6d9-4952-9d05-88c499b39cd7.png)
+
 
 
 
