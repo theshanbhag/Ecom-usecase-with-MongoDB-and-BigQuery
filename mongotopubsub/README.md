@@ -30,4 +30,5 @@ gcloud beta run jobs --region=us-central1 execute job-mongotopubsubcr
 4.Above process will run mongotopubsub application in cloud run. 
 
 5.Maximum idle time for cloud run job is 3600 seconds which is like one hour. If job is idle for more than an hour then cloud run will stop the job.
+
 6. For each collection which requires CDC to be captured, separately mongotopubsub application needs to be run in cloud run to read and process messages from respective pubsub topic.
