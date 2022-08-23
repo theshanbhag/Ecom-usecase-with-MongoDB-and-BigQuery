@@ -17,7 +17,7 @@ gcloud builds submit --pack image=gcr.io/ecomm-analysis/mongotopubsubcr
  //To create docker image out of code 
 
  
-gcloud beta run jobs create job-mongotopubsubcr --image gcr.io/ecomm-analysis/mongotopubsubcr --tasks 1 --task-timeout 3600 --set-env-vars GOOGLE_APPLICATION_CREDENTIALS=ecomm-analysis-dataflow.json --set-env-vars ProjectId=ecomm-analysis --set-env-vars TopicId=ecommerce_topic --set-env-vars MongoURI=mongodb+srv://mongotobq:M0ngoToBqPoc@mongo-bq.kn30v.mongodb.net --set-env-vars Database=ecommerce --set-env-vars Collection=orders --max-retries 1 --region us-central1 
+gcloud beta run jobs create job-mongotopubsubcr --image gcr.io/project-name/mongotopubsubcr --tasks 1 --task-timeout 3600 --set-env-vars GOOGLE_APPLICATION_CREDENTIALS=google-app-credentials.json --set-env-vars ProjectId=project-id --set-env-vars TopicId=TopicName --set-env-vars MongoURI=mongoURI --set-env-vars Database=databasename --set-env-vars Collection=collectionname --max-retries 1 --region us-central1 
 
 //To create job out of docker image by passing required environment variables. Note while preparing docker image it needs to contain google application credentials file as well. TopicId, Collection values varies depending on for which collection CDC has to be processed
 
@@ -29,5 +29,5 @@ gcloud beta run jobs --region=us-central1 execute job-mongotopubsubcr
 
 4.Above process will run mongotopubsub application in cloud run. 
 
-5.Maximum idle time for cloud run job is 3600 seconds which is like one hour. 
+5.Maximum idle time for cloud run job is 3600 seconds which is like one hour. If job is idle for more than an hour then cloud run will stop the job.
 6. For each collection which requires CDC to be captured, separately mongotopubsub application needs to be run in cloud run to read and process messages from respective pubsub topic.
