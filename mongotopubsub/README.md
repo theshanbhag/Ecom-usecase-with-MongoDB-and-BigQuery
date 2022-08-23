@@ -6,7 +6,7 @@ There are 3 collections in mongodb i.e orders, products and users wherein if any
 
 **Details:** 
 
-1.Mongo to pubsub application is developed as a maven based java application. 
+1.Mongo to pubsub application is developed as a maven based java application. mvn install needs to be run.
 
 2.This is deployed and run as part of cloud run job. 
 
@@ -19,7 +19,7 @@ gcloud builds submit --pack image=gcr.io/ecomm-analysis/mongotopubsubcr
  
 gcloud beta run jobs create job-mongotopubsubcr --image gcr.io/ecomm-analysis/mongotopubsubcr --tasks 1 --task-timeout 3600 --set-env-vars GOOGLE_APPLICATION_CREDENTIALS=ecomm-analysis-dataflow.json --set-env-vars ProjectId=ecomm-analysis --set-env-vars TopicId=ecommerce_topic --set-env-vars MongoURI=mongodb+srv://mongotobq:M0ngoToBqPoc@mongo-bq.kn30v.mongodb.net --set-env-vars Database=ecommerce --set-env-vars Collection=orders --max-retries 1 --region us-central1 
 
-//To create job out of docker image by passing required environment variables. 
+//To create job out of docker image by passing required environment variables. Note while preparing docker image it needs to contain google application credentials file as well.
 
  
 gcloud beta run jobs --region=us-central1 execute job-mongotopubsubcr 
