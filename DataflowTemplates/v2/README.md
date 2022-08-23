@@ -85,7 +85,7 @@ mvn clean package -Dcheckstyle.skip=true -Dmaven.test.skip=true -Dimage=${TARGET
   "sdk_info": { \
     "language": "JAVA" \
   } \
-} \
+} 
 
 4.Template can be executed using the following gcloud command. 
 
