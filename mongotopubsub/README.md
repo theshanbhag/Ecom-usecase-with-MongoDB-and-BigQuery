@@ -8,7 +8,7 @@ There are 3 collections in mongodb i.e orders, products and users wherein if any
 
 1.Mongo to pubsub application is developed as a maven based java application. mvn install needs to be run.
 
-2.This is deployed and run as part of cloud run job. 
+2.This jar built in above step is deployed and run as part of cloud run job. 
 
 3.Below are set of gcloud commands to create docker image with code of mongopubsub application, upload it into container registry, then create a cloud run job then execute it 
 
