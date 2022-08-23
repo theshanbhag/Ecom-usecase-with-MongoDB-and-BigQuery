@@ -97,7 +97,7 @@ public class MongoDbToBigQuery {
                     if (userOption.equals("FLATTEN")) {
                     JsonNode jsonNode;
                     try {
-                      LOG.info(":Document from pubsub is:"+docString);
+                      LOG.info(":Document from mongodb is:"+docString);
                       jsonNode = mapper.readValue(docString, JsonNode.class);
                       jsonNode.fieldNames().forEachRemaining(field -> {
                         JsonNode node = jsonNode.get(field);
