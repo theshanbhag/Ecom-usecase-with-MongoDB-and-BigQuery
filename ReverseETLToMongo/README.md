@@ -1,4 +1,4 @@
-**Reverse ETL from BigQuery to Mongo **
+**Reverse ETL from BigQuery to Mongo**
 
 **Purpose:** 
 
