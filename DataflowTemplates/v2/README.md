@@ -2,29 +2,28 @@
 
 **Purpose**
 
-Delta changes in mongo collections orders, users and products are pushed to pubsub via mongopubsub application. These streaming messages need to be consumed and updates needs to be made in big query tables. These CDC dataflow jobs will be responsible for listening to respective pubsub topics and updating respective big query tables. 
+Delta changes in mongo collections orders, users and products are pushed to pubsub via mongopubsub application. These streaming messages need to be consumed and updates needs to be made in respective big query tables. These CDC dataflow jobs will be responsible for listening to respective pubsub topics and updating respective big query tables. 
 
 **Details:**
 
 1.Set below variables in classpath. 
 
-export PROJECT=<project-id> 
-export IMAGE_NAME="mongodb-to-bigquery-cdc" 
-export BUCKET_NAME=gs://<bucket-name> 
-export TARGET_GCR_IMAGE=gcr.io/${PROJECT}/${IMAGE_NAME} 
-export BASE_CONTAINER_IMAGE=gcr.io/dataflow-templates-base/java8-template-launcher-base 
-export BASE_CONTAINER_IMAGE_VERSION=latest 
-export TEMPLATE_MODULE=mongodb-to-googlecloud 
-export APP_ROOT=/template/${TEMPLATE_MODULE} 
-export COMMAND_SPEC=${APP_ROOT}/resources/mongodb-to-bigquery-cdc-command-spec.json 
-export TEMPLATE_IMAGE_SPEC=${BUCKET_NAME}/images/mongodb-to-bigquery-image-spec.json 
- 
-export MONGODB_HOSTNAME="mongodb+srv://<username>:<password>@<server-connection-string>" 
-export MONGODB_DATABASE_NAME=<database name> 
-export MONGODB_COLLECTION_NAME=<Collection name> 
-export OUTPUT_TABLE_SPEC=<output tabel spec> 
-export USER_OPTION = <user-option> 
-export INPUT_TOPIC=<input-topic> 
+export PROJECT=project-id \
+export IMAGE_NAME="mongodb-to-bigquery-cdc" \
+export BUCKET_NAME=gs://bucket-name \
+export TARGET_GCR_IMAGE=gcr.io/${PROJECT}/${IMAGE_NAME} \
+export BASE_CONTAINER_IMAGE=gcr.io/dataflow-templates-base/java8-template-launcher-base \
+export BASE_CONTAINER_IMAGE_VERSION=latest \
+export TEMPLATE_MODULE=mongodb-to-googlecloud \
+export APP_ROOT=/template/${TEMPLATE_MODULE} \
+export COMMAND_SPEC=${APP_ROOT}/resources/mongodb-to-bigquery-cdc-command-spec.json \
+export TEMPLATE_IMAGE_SPEC=${BUCKET_NAME}/images/mongodb-to-bigquery-image-spec.json \
+export MONGODB_HOSTNAME="mongodb+srv://username:password@server-connection-string" \
+export MONGODB_DATABASE_NAME=database name \
+export MONGODB_COLLECTION_NAME=Collection name \
+export OUTPUT_TABLE_SPEC=output tabel spec \
+export USER_OPTION = user-option \
+export INPUT_TOPIC=input-topic \
 
 Note: Depending on collection whose changes are to be processed by CDC dataflow job, MONGODB_COLLECTION_NAME, OUTPUT_TABLE_SPEC and INPUT_TOPIC needs to be set.  
 
@@ -35,58 +34,58 @@ mvn clean package -Dcheckstyle.skip=true -Dmaven.test.skip=true -Dimage=${TARGET
 3.Create spec file in Cloud Storage under the path ${TEMPLATE_IMAGE_SPEC} describing container image location and metadata. 
 
 { 
-  "image": "gcr.io/ecomm-analysis/mongodb-to-bigquery-cdc", 
-  "metadata": { 
-    "name": "MongoDb To BigQuery", 
-    "description": "A pipeline reads from MongoDB and writes to BigQuery.", 
-    "parameters": [ 
-      { 
-        "name": "mongoDbUri", 
-        "label": "MongoDB Connection URI", 
-        "helpText": "URI to connect to MongoDb Atlas", 
-        "is_optional": false, 
-        "paramType": "TEXT" 
-      }, 
-      { 
-        "name": "database", 
-        "label": "mongo database", 
-        "helpText": "Database in MongoDB to store the collection. ex: my-db.", 
-        "is_optional": false, 
-        "paramType": "TEXT" 
-      }, 
-      { 
-        "name": "collection", 
-        "label": "mongo collection", 
-        "helpText": "Name of the collection inside MongoDB database. ex: my-collection.", 
-        "is_optional": false, 
-        "paramType": "TEXT" 
-      }, 
-      { 
-        "name": "outputTableSpec", 
-        "label": "outputTableSpec", 
-        "helpText": "BigQuery destination table spec. e.g bigquery-project:dataset.output_table", 
-        "paramType": "TEXT" 
-      }, 
-      { 
-        "name": "userOption", 
-        "label": "User option", 
-        "helpText": " ", 
-        "is_optional": true, 
-        "paramType": "TEXT" 
-      }, 
-      { 
-        "name": "inputTopic", 
-        "label": "input Pubsub Topic name", 
-        "helpText": "Topic Name to read from e.g. projects/<project-name>/topics/<topic-name>", 
-        "is_optional": false, 
-        "paramType": "TEXT" 
-      } 
-    ] 
-  }, 
-  "sdk_info": { 
-    "language": "JAVA" 
-  } 
-} 
+  "image": "gcr.io/ecomm-analysis/mongodb-to-bigquery-cdc", \
+  "metadata": { \
+    "name": "MongoDb To BigQuery", \
+    "description": "A pipeline reads from MongoDB and writes to BigQuery.", \
+    "parameters": [ \
+      { \
+        "name": "mongoDbUri", \
+        "label": "MongoDB Connection URI", \
+        "helpText": "URI to connect to MongoDb Atlas", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "database", \
+        "label": "mongo database", \
+        "helpText": "Database in MongoDB to store the collection. ex: my-db.", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "collection", \
+        "label": "mongo collection", \
+        "helpText": "Name of the collection inside MongoDB database. ex: my-collection.", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "outputTableSpec", \
+        "label": "outputTableSpec", \
+        "helpText": "BigQuery destination table spec. e.g bigquery-project:dataset.output_table", \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "userOption", \
+        "label": "User option", \
+        "helpText": " ", \
+        "is_optional": true, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "inputTopic", \
+        "label": "input Pubsub Topic name", \
+        "helpText": "Topic Name to read from e.g. projects/project-name/topics/topic-name", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      } \
+    ] \
+  }, \
+  "sdk_info": { \
+    "language": "JAVA" \
+  } \
+} \
 
 4.Template can be executed using the following gcloud command. 
 
