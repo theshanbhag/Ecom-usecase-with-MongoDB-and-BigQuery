@@ -23,7 +23,7 @@ export MONGODB_DATABASE_NAME=database name \
 export MONGODB_COLLECTION_NAME=Collection name \
 export OUTPUT_TABLE_SPEC=output tabel spec \
 export USER_OPTION = user-option \
-export INPUT_TOPIC=input-topic \
+export INPUT_TOPIC=input-topic 
 
 Note: Depending on collection whose changes are to be processed by CDC dataflow job, MONGODB_COLLECTION_NAME, OUTPUT_TABLE_SPEC and INPUT_TOPIC needs to be set.  
 
