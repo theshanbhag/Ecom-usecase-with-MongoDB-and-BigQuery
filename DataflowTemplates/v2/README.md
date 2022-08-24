@@ -29,7 +29,7 @@ export USER_OPTION = user-option \
 export INPUT_TOPIC=input-topic 
 ```
 Note: 
-    **Depending on collection whose changes are to be processed by  dataflow job, MONGODB_COLLECTION_NAME, OUTPUT_TABLE_SPEC  needs to be set.**  
+    **Depending on collection whose data are to be processed by  dataflow job, MONGODB_COLLECTION_NAME, OUTPUT_TABLE_SPEC  needs to be set.**  
 
 2.Build and push image to Google Container Repository 
 
