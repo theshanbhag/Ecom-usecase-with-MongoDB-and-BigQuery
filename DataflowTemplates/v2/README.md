@@ -1,4 +1,4 @@
-# Dataflow - MongoDB-and-BigQuery
+# Dataflow - MongoDB-to-BigQuery
 ## Batch Job -Template
 
 **Purpose**
