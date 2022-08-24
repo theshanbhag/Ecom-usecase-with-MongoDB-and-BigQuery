@@ -736,11 +736,46 @@ Sample resp
  ![image](https://user-images.githubusercontent.com/111537542/185982827-c76ce543-d132-40c8-9250-b8892381bfbd.png)
 
 
-**Business Analytics 
+**Model updating with only incremental records **
+
+Based on real time increamental changes to Bigquery table data, our model also has to be retrained on an increamental basis.
+BigML model provides an option 'warm_start' from which we can train our existing model with new data
+
+<img width="452" alt="image" src="https://user-images.githubusercontent.com/111537542/186464729-e826d816-314b-4fb3-aeec-5392bf05477b.png">
+
+Bigquery change history lets us track the history of changes to a BigQuery table using APPENDS TVF.
+
+
+The APPENDS TVF returns a table of all rows appended to a table for a given time range. The following operations add rows to the APPENDS change history:
+
+	CREATE TABLE DDL statement
+	INSERT DML statement
+	MERGE DML statement
+	Loading data into BigQuery
+	Streaming ingestion
+	
+<img width="452" alt="image" src="https://user-images.githubusercontent.com/111537542/186465831-207e5f82-6509-47b1-bbc2-f9d091463b5a.png">
+
+Once we are able to get only the increamental records we can retrain the existing model.
+
+
+<img width="452" alt="image" src="https://user-images.githubusercontent.com/111537542/186466181-f267ee3e-a8d9-48e1-bf95-1d6f5c0a58fc.png">
+
+
+Once we have the increamental training model query we can schedule it in Bigquery scheduled queries as below
+
+<img width="452" alt="image" src="https://user-images.githubusercontent.com/111537542/186467228-aab8dba4-3d3e-42d3-a407-4c6579f44403.png">
+
+
+Note : Currently only K-Means model is supported for retraining.
+Matrix model require to purchase flex slots for model creation so it can't be scheduled.
+
+
+**Business Analytics **
 
 
 
-Looker – Mongo DB Integration**
+**Looker – Mongo DB Integration**
  
 The general steps for setting up a Google BigQuery Standard SQL or Google BigQuery Legacy SQL connection are:
 Create a service account with access to the Google project and download the JSON credentials certificate.
