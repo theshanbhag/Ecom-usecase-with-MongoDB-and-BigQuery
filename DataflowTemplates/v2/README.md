@@ -104,6 +104,7 @@ Delta changes in mongo collections orders, users and products are pushed to pubs
 
 1.Set below variables in classpath. 
 
+```
 export PROJECT=project-id \
 export IMAGE_NAME="mongodb-to-bigquery-cdc" \
 export BUCKET_NAME=gs://bucket-name \
@@ -120,6 +121,7 @@ export MONGODB_COLLECTION_NAME=Collection name \
 export OUTPUT_TABLE_SPEC=output tabel spec \
 export USER_OPTION = user-option \
 export INPUT_TOPIC=input-topic 
+```
 
 Note: Depending on collection whose changes are to be processed by CDC dataflow job, MONGODB_COLLECTION_NAME, OUTPUT_TABLE_SPEC and INPUT_TOPIC needs to be set.  
 
@@ -128,7 +130,7 @@ Note: Depending on collection whose changes are to be processed by CDC dataflow 
 mvn clean package -Dcheckstyle.skip=true -Dmaven.test.skip=true -Dimage=${TARGET_GCR_IMAGE} -Dbase-container-image=${BASE_CONTAINER_IMAGE} -Dbase-container-image.version=${BASE_CONTAINER_IMAGE_VERSION} -Dapp-root=${APP_ROOT} -Dcommand-spec=${COMMAND_SPEC} -am -pl ${TEMPLATE_MODULE} 
 
 3.Create spec file in Cloud Storage under the path ${TEMPLATE_IMAGE_SPEC} describing container image location and metadata. 
-
+```
 { 
   "image": "gcr.io/ecomm-analysis/mongodb-to-bigquery-cdc", \
   "metadata": { \
@@ -182,12 +184,13 @@ mvn clean package -Dcheckstyle.skip=true -Dmaven.test.skip=true -Dimage=${TARGET
     "language": "JAVA" \
   } \
 } 
-
+```
 4.Template can be executed using the following gcloud command. 
 
 export JOB_NAME="${TEMPLATE_MODULE}-`date +%Y%m%d-%H%M%S-%N`" 
-
+```
 gcloud beta dataflow flex-template run ${JOB_NAME} --project=${PROJECT} --region=us-central1 --template-file-gcs-location=${TEMPLATE_IMAGE_SPEC} 
 --parameters mongoDbUri=${MONGODB_HOSTNAME},database=${MONGODB_DATABASE_NAME},collection=${MONGODB_COLLECTION_NAME},outputTableSpec=${OUTPUT_TABLE_SPEC},inputTopic=${INPUT_TOPIC},userOption=${USER_OPTION} 
+```
 
 5.Depending on for which collection, CDC needs to be captured and processed, above steps needs to be repeated for each job pertaining to each collection. 
