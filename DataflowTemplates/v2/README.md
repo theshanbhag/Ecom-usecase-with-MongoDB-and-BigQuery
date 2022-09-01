@@ -94,7 +94,7 @@ gcloud beta dataflow flex-template run ${JOB_NAME} --project=${PROJECT} --region
 ```
 5.**The job can process one collection .We need to run multiple job with collection name for multiple collections**.
 
-## Stream Job -CDC Template
+## Stream Job -CDC Template(Linux/ Mac)
 
 **Purpose**
 
@@ -194,3 +194,88 @@ gcloud beta dataflow flex-template run ${JOB_NAME} --project=${PROJECT} --region
 ```
 
 5.Depending on for which collection, CDC needs to be captured and processed, above steps needs to be repeated for each job pertaining to each collection. 
+
+## Stream Job -CDC Template(Windows)
+
+**Details:**
+
+1.Set below variables in classpath using powershell. 
+
+```
+Set-Variable -Name "TEMPLATE_MODULE" -Value "mongodb-to-googlecloud"
+Set-Variable -Name "PROJECT" -Value "ecomm-analysis"
+```
+
+Note: Depending on collection whose changes are to be processed by CDC dataflow job, MONGODB_COLLECTION_NAME, OUTPUT_TABLE_SPEC and INPUT_TOPIC needs to be set.  
+
+2.Build and push image to Google Container Repository 
+
+mvn clean package '-Dcheckstyle.skip=true' '-Dmaven.test.skip=true' '-Dimage=gcr.io/ecomm-analysis/mongodb-to-bigquery-cdc' '-Dbase-container-image=gcr.io/dataflow-templates-base/java8-template-launcher-base' '-Dbase-container-image.version=latest' '-Dapp-root=/template/mongodb-to-googlecloud' '-Dcommand-spec=/template/mongodb-to-googlecloud/resources/mongodb-to-bigquery-cdc-command-spec.json' -am -pl ${TEMPLATE_MODULE}
+
+
+3.Create spec file in Cloud Storage under the path ${TEMPLATE_IMAGE_SPEC} describing container image location and metadata. 
+```
+{ 
+  "image": "gcr.io/ecomm-analysis/mongodb-to-bigquery-cdc", \
+  "metadata": { \
+    "name": "MongoDb To BigQuery", \
+    "description": "A pipeline reads from MongoDB and writes to BigQuery.", \
+    "parameters": [ \
+      { \
+        "name": "mongoDbUri", \
+        "label": "MongoDB Connection URI", \
+        "helpText": "URI to connect to MongoDb Atlas", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "database", \
+        "label": "mongo database", \
+        "helpText": "Database in MongoDB to store the collection. ex: my-db.", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "collection", \
+        "label": "mongo collection", \
+        "helpText": "Name of the collection inside MongoDB database. ex: my-collection.", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "outputTableSpec", \
+        "label": "outputTableSpec", \
+        "helpText": "BigQuery destination table spec. e.g bigquery-project:dataset.output_table", \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "userOption", \
+        "label": "User option", \
+        "helpText": " ", \
+        "is_optional": true, \
+        "paramType": "TEXT" \
+      }, \
+      { \
+        "name": "inputTopic", \
+        "label": "input Pubsub Topic name", \
+        "helpText": "Topic Name to read from e.g. projects/project-name/topics/topic-name", \
+        "is_optional": false, \
+        "paramType": "TEXT" \
+      } \
+    ] \
+  }, \
+  "sdk_info": { \
+    "language": "JAVA" \
+  } \
+} 
+```
+4.Template can be executed using the following gcloud command. 
+
+export JOB_NAME="${TEMPLATE_MODULE}-`date +%Y%m%d-%H%M%S-%N`" 
+```
+gcloud beta dataflow flex-template run mongodb-to-googlecloud-order --project=${PROJECT} --region=us-central1 --template-file-gcs-location=gs://bucketname/images/mongodb-to-bigquery-cdc-image-spec-new.json --parameters mongoDbUri=mongodb+srv://username:password@hostname.net --parameters database=databasename --parameters collection=collection-name --parameters outputTableSpec=ecomm-analysis.datasetname.tablename  --parameters inputTopic=projects/ecomm-analysis/topics/topicname --parameters userOption=  
+```
+
+5.Depending on for which collection, CDC needs to be captured and processed, above steps needs to be repeated for each job pertaining to each collection. 
+
+
