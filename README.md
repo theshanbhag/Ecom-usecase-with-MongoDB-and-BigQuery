@@ -719,7 +719,7 @@ Note : Currently only K-Means model is supported for retraining.
 Matrix model require to purchase flex slots for model creation so it can't be scheduled.
 
 
-**Business Analytics **
+**Business Analytics**
 
 
 
