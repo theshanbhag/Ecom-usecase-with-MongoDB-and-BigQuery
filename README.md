@@ -666,9 +666,25 @@ Sample resp
 
 
  ![image](https://user-images.githubusercontent.com/111537542/185982827-c76ce543-d132-40c8-9250-b8892381bfbd.png)
+ 
+ 
+ **Other Vertex AI Features**
+ 
+ 1) In last section we discussed how to use Google cloud functions to get model predictions<br />
+ We can also get model predictions with the Vertex AI API as documented in the link below<br />
+ 
+https://codelabs.developers.google.com/codelabs/bqml-vertex-prediction#0<br />
+
+2) We can also use vertex AI for Train a TensorFlow model with data from BigQuery as documented in the link below<br />
+ 
+https://codelabs.developers.google.com/vertex-workbench-intro#0<br />
+
+3) We can also use vertex AI for building and training ML models<br />
+
+https://www.youtube.com/watch?v=aNWCzyCK4Us<br />
 
 
-**Model updating with only incremental records **
+**Retraining model with incremental records**
 
 Based on real time increamental changes to Bigquery table data, our model also has to be retrained on an increamental basis.
 BigML model provides an option 'warm_start' from which we can train our existing model with new data
@@ -841,8 +857,8 @@ Sample view file
  
 Dashboard
 
- 
-  ![image](https://user-images.githubusercontent.com/111537542/185984083-a6a66810-c0d7-407f-b227-058cb4329fcc.png)
+ <img width="1700" alt="image" src="https://user-images.githubusercontent.com/111537542/195930299-70984698-3c95-42d9-bf28-190a462a1b51.png">
+
 
  
  
@@ -856,8 +872,7 @@ Dashboard
 
 Sales Distribution
 
- ![image](https://user-images.githubusercontent.com/111537542/185984123-7f33cdce-e0e5-40be-a847-dc52ef562bbc.png)
-
+<img width="1006" alt="image" src="https://user-images.githubusercontent.com/111537542/195930831-5c9685ce-3664-4e49-955a-2a309f960e36.png">
 
 Sales Trend
 Sales Distribution by Category
@@ -865,8 +880,7 @@ Sales Distribution by Category
 
 
 
- ![image](https://user-images.githubusercontent.com/111537542/185984182-760c110e-7934-486a-960e-da8492e2c458.png)
-
+<img width="1122" alt="image" src="https://user-images.githubusercontent.com/111537542/195931008-f6d46557-ddd8-4e4c-9138-a687dfa5d1cd.png">
 
 
 
@@ -878,8 +892,12 @@ Products with repeat orders
 
 
 
- ![image](https://user-images.githubusercontent.com/111537542/185984210-da70c34b-37a7-435c-bd1b-efb6d63e4f5a.png)
+<img width="1122" alt="image" src="https://user-images.githubusercontent.com/111537542/195931096-eeef8330-d3c0-4263-98fa-7606bc2e44a4.png">
 
+
+Geo Based sales distribution Map
+
+<img width="535" alt="image" src="https://user-images.githubusercontent.com/111537542/195931337-6ac7293f-dbdf-44fb-b15c-af40b949a609.png">
 
 
 
