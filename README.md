@@ -487,15 +487,12 @@ order by user_pseudo_id))
 
 
 
-**Step 4 : Recommend **
+**Step 4 : Recommend**
 
 
 Top 5 recommendations for a user
  
-## RECOMMEND for a user
- 
- 
-#standardSQL
+
 SELECT
  *
 FROM
@@ -511,47 +508,16 @@ FROM
 **Model Management - Vertex AI**
 
 ​​
-We will need a Google Cloud Platform project with billing enabled to run this.
-To create a project, follow the instructions here.
-Step 1: Enable the Compute Engine API
-Navigate to Compute Engine and select Enable if it isn't already enabled. You'll need this to create your notebook instance.
-Step 2: Enable the Vertex AI API
-Navigate to the Vertex AI section of your Cloud Console and click Enable Vertex AI API.
 
- ![image](https://user-images.githubusercontent.com/111537542/185981237-0e47a34f-e173-49c8-b924-290c7ece622d.png)
-
- 
-Step 3: Create a Notebooks instance
-We'll use Notebooks to get predictions after we've deployed our model. From the Vertex AI section of your Cloud Console, click on Notebooks:
-From there, select New Instance. Then select the TensorFlow Enterprise 2.3 instance type without GPUs:
- 
-  ![image](https://user-images.githubusercontent.com/111537542/185981376-00d37d42-609e-440a-a384-b1ed1bb01ff9.png)
-
- ![image](https://user-images.githubusercontent.com/111537542/185981415-a511919e-d4dc-46e5-8254-22fbd2c0b7eb.png)
-
-
-Use the default options and then click Create. 
- 
- 
- 
- 
- 
- 
- 
-**Train a BigQuery ML model
- **
-Step 1: Create a BigQuery dataset in your project
-To train a model in BigQuery ML, you'll need to create a dataset within your project to store this model. Click on your project in the left menu bar, and then select Create Dataset:
-Step 2: Run a CREATE MODEL query
-In the BigQuery Query editor, run the following CREATE MODEL query to create and train a BigQuery ML model on the public dataset we'll be using
- 
-  ![image](https://user-images.githubusercontent.com/111537542/185981471-a883d752-be76-496f-9260-41c99b7b0f76.png)
-
-
-
-** 
-Export your BigQuery ML model**
+In the above sections we have used SQL workspace to create,train a Bigquery model.<br /> 
+Now in this section we will learn<br /> 
+		a) Export your BQML model to Cloud Storage<br />
+		b) Deploy your trained BQML to Vertex AI<br />
+		c) Get predictions on your deployed model<br />
+		
+**Export your BigQuery ML model**<br />
 With a trained BQML model, we can use the BQML SQL syntax to get predictions or we can export the model to deploy it elsewhere. Here we'll export our model so that we can deploy it to Vertex AI to scalably serve the model and get predictions.
+
 Step 1: Create a Cloud Storage Bucket for your model
 In the model details, click Export Model:
 
@@ -593,40 +559,9 @@ While your model is being exported, navigate to the Storage section of your Clou
  ![image](https://user-images.githubusercontent.com/111537542/185981881-00c4e9c4-465b-4778-a1d7-9e766ddc3a29.png)
 
  
-Export your BigQuery ML model
-With a trained BQML model, we can use the BQML SQL syntax to get predictions or we can export the model to deploy it elsewhere. Here we'll export our model so that we can deploy it to Vertex AI to scalably serve the model and get predictions.
-Step 1: Create a Cloud Storage Bucket for your model
-In the model details, click Export Model:
 
- ![image](https://user-images.githubusercontent.com/111537542/185981965-364fd5b1-05c5-4667-b8a6-7fbe448336ed.png)
-
-
-This will prompt you to enter the Google Cloud Storage (GCS) location where you'd like your model's assets to be exported. If you don't have a GCS bucket yet, don't worry! We're about to create one. First, click Browse:
- ![image](https://user-images.githubusercontent.com/111537542/185982017-b0040f51-69ff-4b71-82b2-de0154a58b72.png)
-
-
-
-Then click the + icon to create a new bucket:
-
- ![image](https://user-images.githubusercontent.com/111537542/185982041-521c7451-4979-4533-b3c0-d811d92818c1.png)
-
-
-Give it a unique name (Storage bucket names need to be globally unique). Click Continue. In the next step, under Location type select Region and choose any of the regions from the dropdown:
-
- ![image](https://user-images.githubusercontent.com/111537542/185982075-a941b5f4-fd3f-418b-85b9-cf9e232602b3.png)
-
-
-Use the default storage class, and under access control make sure Uniform is selected:
-
- ![image](https://user-images.githubusercontent.com/111537542/185982133-bed59db8-9519-4a27-834d-e9d540f99249.png)
-
-
-Click continue and use the defaults for the rest of the options. Then click Create.
-Step 2: Export the BQML model
-With your new bucket created, enter model-assets (or anything you'd like) in the Name field and then click Select:
  
- 
-**Import the model to Vertex AI**
+**Step 3 : Import the model to Vertex AI**
 In this step we'll reference the GCS storage location where we just exported our model assets to create and import the model to Vertex AI.
 Step 1: Import the model
 In your Cloud console, navigate to the Vertex AI Models section. From there, select Import:
@@ -648,12 +583,9 @@ Then click Import. It will take a few minutes to import your model. Once it has 
  ![image](https://user-images.githubusercontent.com/111537542/185982308-273b7561-59b0-4340-8b9f-b53649fc23e1.png)
 
 
-Then click Export. This will create a job in BigQuery to export your model in TensorFlow's SavedModel format to the newly created GCS bucket you specified. This will take about a minute to export.
-While your model is being exported, navigate to the Storage section of your Cloud console. When your job completes, you should see your model assets exported to the bucket you just created under a model-assets subdirectory:
- ![image](https://user-images.githubusercontent.com/111537542/185982363-a50fb02a-ac94-4e72-9010-b76e220487f9.png)
 
  
-**Deploy the model to an endpoint**
+**Deploy your trained BQML to Vertex AI**
 Now that we've uploaded our model, the next step is to create an Endpoint in Vertex. A Model resource in Vertex can have multiple endpoints associated with it, and you can split traffic between endpoints.
 Step 1: Creating an endpoint
 On your model page, navigate to the Deploy and test tab and click Deploy to endpoint:
@@ -670,7 +602,7 @@ Then select Done and click Continue. Leave the selected location settings as is 
 
  
 
-**Testing model Online**
+**Get online predictions on your deployed model**
 
 **UI**
 
