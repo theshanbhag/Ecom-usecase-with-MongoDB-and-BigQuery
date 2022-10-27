@@ -7,12 +7,13 @@
 
 Loyalty programs often categorize users into discrete segments based on the user’s purchase behavior and site engagement, such as Platinum / Gold / Silver / Bronze tiers.  
 
-In this example, we showcase how a ML driven clustering model can be applied to achieve user clustering.
-K-means clustering
+In this example, we showcase how a ML driven clustering model can be applied to achieve user clustering using **Big query SQL workspace**.
+<br />
+<br />**K-means clustering**<br />
 K-means is an unsupervised learning technique identifying customer segments, so model training does not require labels nor split data for training or evaluation.
 
  
-**Step 1 :  Cluster Users based on following attributes**
+**Cluster Users based on following attributes**
 
 The following attributes can reliably predict user behavior, and can be used to cluster users into various Loyalty levels:
 
@@ -23,7 +24,7 @@ No of orders
 
 
  
-Step 1 - Preprocess to training data**
+**Step 1 - Preprocess to training data**
            
 WITH
 ViewStats AS (
@@ -143,9 +144,7 @@ FROM
  ![image](https://user-images.githubusercontent.com/111537542/185979873-30426e48-8414-440a-b704-dea4af1c9e6f.png)
 
 
-**
-Step 3: Use the ML.PREDICT function to predict a user’s cluster
-**
+**Step 3: Use the ML.PREDICT function to predict a user’s cluster**
 Query
  
  
@@ -224,7 +223,7 @@ Output
 
 **Inference**
 
-Cluster 1 has more orders, session count and total time engaged making them a premium customer. We can offer discount offers to encourage them.
+Cluster 1 has more orders, session count and total time engaged making them a premium customer. We can offer discounts to encourage them.
 Cluster 2 has the highest average order value, but very less no of orders. These are potential customers who tend to spend more and are very selective in the purchase. We can recommend highly rated products so that they can buy more thus increasing their order count. Also they have less engagement time , we can send some advertising messages to increase engagement and thereby increase the number of orders.
 Cluster 3 has more orders than 2 but very less session count. Here again we can send messages to increase user engagement.
 Cluster 4 has very less session count as well as low no of orders. This segment can be characterized as our bronze segment.
@@ -257,14 +256,13 @@ With matrix factorization, in order to train the model, you will need a table wi
 
 
 
-**
-Recommendations
+**Recommendations
 
-Product affinity - Based on product bought together historically ( Implicit feedback)
+Product affinity - Based on products bought together ( Implicit feedback)
 
 
-Step 1 - Preprocess to training data
-  **
+**Step 1 - Preprocess to training data**
+  
 Query:
  
 WITH UniqueUsersList As ( ## get all unique  users
@@ -341,9 +339,7 @@ order by user_pseudo_id
 
 
 
-**
-Step 2 : Create a BigQuery ML model
-**
+**Step 2 : Create a BigQuery ML model**
 
 Query:
  
@@ -670,23 +666,24 @@ Sample resp
  
  **Other Vertex AI Features**
  
- 1) In last section we discussed how to use Google cloud functions to get model predictions<br />
- We can also get model predictions with the Vertex AI API as documented in the link below<br />
+ In last section we discussed how to use SQL Workspace, Vertex AI and Google cloud functions to create models and get model predictions<br />
+ 
+ Vertex AI also provides a rich set of No code capabilities to handle the complete life cycle of specific AutoML models right from creation to management.
+ Please refer to the below links to get an overview of Vertex AI capabilities<br />
+ 
+ https://www.youtube.com/watch?v=aNWCzyCK4Us
  
 https://codelabs.developers.google.com/codelabs/bqml-vertex-prediction#0<br />
 
-2) We can also use vertex AI for Train a TensorFlow model with data from BigQuery as documented in the link below<br />
+
+Instead of SQL workspace, we can also use vertex AI workbench as documented in the link below<br />
  
 https://codelabs.developers.google.com/vertex-workbench-intro#0<br />
-
-3) We can also use vertex AI for building and training ML models<br />
-
-https://www.youtube.com/watch?v=aNWCzyCK4Us<br />
 
 
 **Retraining model with incremental records**
 
-Based on real time increamental changes to Bigquery table data, our model also has to be retrained on an increamental basis.
+Based on real time incremental changes to Bigquery table data, our model also has to be retrained on an increamental basis.
 BigML model provides an option 'warm_start' from which we can train our existing model with new data
 
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/111537542/186464729-e826d816-314b-4fb3-aeec-5392bf05477b.png">
@@ -716,12 +713,9 @@ Once we have the increamental training model query we can schedule it in Bigquer
 
 
 Note : Currently only K-Means model is supported for retraining.
-Matrix model require to purchase flex slots for model creation so it can't be scheduled.
 
 
 **Business Analytics**
-
-
 
 **Looker – Mongo DB Integration**
  
